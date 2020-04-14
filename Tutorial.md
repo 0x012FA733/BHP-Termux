@@ -1,6 +1,6 @@
 # BHP-Termux 教程
 
-## 前言
+## 〇：前言
 
 1. 感谢 [Lkeme](https://github.com/lkeme) 的 [BiliHelper-personal](https://github.com/lkeme/BiliHelper-personal)
 
@@ -18,7 +18,7 @@
 
 1. 如有需要请自备解压缩软件, 梯子
 
-## 下载并安装 Termux
+## 一：下载并安装 Termux
 
 ### 方法一: 使用 Google Play
 
@@ -28,7 +28,7 @@
 
 1. 打开页面 [Termux](https://f-droid.org/packages/com.termux/)
 
-   *注: 最新版本 0.92, 支持 Android 7.0 以上系统*
+   *注: 最新版本 0.94, 支持 Android 7.0 以上系统*
 
 1. 在页面点击蓝色 **Download APK** 开始下载 Termux
 
@@ -44,19 +44,17 @@
 
 1. 安装下载好的安装包
 
-## 下载脚本
+## 二：下载脚本
 
 1. 打开页面 [BHP-Termux Releases](https://github.com/0x012FA733/BHP-Termux/releases)
 
 1. 下载最新版本 Zip 压缩包
 
-   *注: 版本号带 cn 的为国内镜像版 (仅支持 Android 7.0 以上系统)*
-
 1. 打开压缩包, 复制文件夹内 `deploy.sh` 和 `start.sh` 到手机储存根目录
 
-## 配置 Termux (此步骤可用于更新 BiliHelper)
+## 三：配置 Termux 并安装 BiliHelper
 
-### 使用脚本自动配置 Termux
+### 使用脚本配置 Termux 并安装 BiliHelper
 
 1. 打开 Termux
 
@@ -73,7 +71,13 @@
 1. 在 Termux 的终端继续输入
 
    ```
-   bash $HOME/storage/shared/deploy.sh
+   bash $HOME/storage/shared/deploy.sh -mpc
+   ```
+
+   或 (以下适用于国内)
+
+   ```
+   bash $HOME/storage/shared/deploy.sh -m t -p -c a
    ```
 
    *注:*
@@ -82,9 +86,29 @@
 
    *2. 下载的文件默认文件名为 `deploy.sh`, 路径为手机储存根目录, 如果更改了路径或文件名请自己对应修改上面命令 (手机储存根目录: `$HOME/storage/shared/`)*
 
+   *3. `deploy.sh` 详细参数*
+
+      ```
+      Usage:
+        deploy.sh [-b] [-m <t|c|o>] [-p] [-c <a|g|o>] [-n]
+
+      Options:
+        -b  备份外部配置文件
+        -m  切换 Termux 镜像地址
+            可选参数: t: Tuna / 清华,
+                     c: CloudFlare CDN
+                     o: Official / 官方 (默认),
+        -p  安装 / 更新先决程序 (首次运行必需)
+        -c  安装 / 更新 Composer (首次运行必需)
+            可选参数: a: aliyun / 阿里云,
+                     g: Github / 本项目,
+                     o: Official / 官方 (默认)
+        -n  安装 BHP 时使用阿里云 Composer 镜像
+      ```
+
 1. 等待配置脚本运行完毕
 
-## 配置 BiliHelper
+## 四：配置 BiliHelper
 
 ### 编辑方法
 
@@ -104,9 +128,9 @@
 
 #### 其他设置
 
-- 请参考 `user.conf` 内说明自行修改, 后果自负
+- 请参考 [BiliHelper-personal 配置文件详解](https://github.com/lkeme/BiliHelper-personal/wiki/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3) 或 `user.conf` 内说明, 自行修改, 后果自负
 
-## 启动 BiliHelper
+## 五：启动 BiliHelper
 
 ### 使用脚本启动 BiliHelper
 
@@ -124,6 +148,16 @@
 
    *2. 下载的文件默认文件名为 `start.sh`, 路径为手机储存根目录, 如果更改了路径或文件名请自己对应修改上面命令 (手机储存根目录: `$HOME/storage/shared/`)*
 
+   *3. `start.sh` 详细参数*
+
+      ```
+      Usage:
+        start.sh [-r]
+
+      Options:
+        -r  删除内部配置文件
+      ```
+
 1. 脚本运行启动 BiliHelper
 
    *注:*
@@ -132,9 +166,9 @@
 
    *2. 使用默认配置文件, 请求输入用户名或密码时不支持符号 "\\" (反斜杠), 输入密码时你的密码不会显示在屏幕上*
 
-### 常见问题
+## 六：常见问题
 
-1. **空白的账号和口令!** 或 **登录失败, 账号或者密码错误**
+### **空白的账号和口令!** 或 **登录失败, 账号或者密码错误**
 
    -  使用外部配置文件启动
 
@@ -144,10 +178,16 @@
 
       在 Termux 中输入命令 `bash $HOME/storage/shared/start.sh -r` 清除内部配置文件, 重新输入正确的用户名和密码
 
-1. 更新 BiliHelper
+### 更新 BiliHelper
 
-   1. 在 Termux 中输入命令 `bash $HOME/storage/shared/deploy.sh` 运行, 即可自动更新到最新版本 BiliHelper
+   1. 在 Termux 中输入命令 `bash $HOME/storage/shared/deploy.sh` 或适用于国内的命令 `bash $HOME/storage/shared/deploy.sh -n` 运行, 即可自动更新到最新版本 BiliHelper
+
+      *注: 添加选项 `-b` 可以自动备份配置文件, 其他请参考 三.3.3 (`deploy.sh` 详细参数)*
 
    1. 重新设置外部配置文件; 如配置文件无更新, 可以把备份配置文件 `user.conf.bak` (位于手机储存根目录下的 `bhpConf` 文件夹内) 重命名为 `user.conf`
 
    1. 继续在 Termux 中输入命令 `bash $HOME/storage/shared/start.sh` 运行, 即可启动 BiliHelper
+
+### 其他问题
+
+   - 参见 [BiliHelper-personal 常见问题](https://github.com/lkeme/BiliHelper-personal/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
