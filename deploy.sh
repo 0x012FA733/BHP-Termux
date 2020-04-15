@@ -29,13 +29,13 @@ usage() {
     echo "  -b  备份外部配置文件"
     echo "  -m  切换 Termux 镜像地址"
     echo "      可选参数: t: Tuna / 清华,"
-    echo "               c: CloudFlare CDN"
-    echo "               o: Official / 官方 (默认),"
+    echo "                c: CloudFlare CDN,"
+    echo "                o: Official / 官方 (默认)"
     echo "  -p  安装 / 更新先决程序 (首次运行必需)"
     echo "  -c  安装 / 更新 Composer (首次运行必需)"
     echo "      可选参数: a: aliyun / 阿里云,"
-    echo "               g: Github / 本项目,"
-    echo "               o: Official / 官方 (默认)"
+    echo "                g: Github / 本项目,"
+    echo "                o: Official / 官方 (默认)"
     echo "  -n  安装 BHP 时使用阿里云 Composer 镜像"
     exit 0
 }
@@ -159,7 +159,9 @@ bhpIns() {
     if [ ! -d $BHP_CONF_PATH ]; then
         mkdir -p $BHP_CONF_PATH
     fi
-    cp conf/user.conf.example $BHP_CONF
+    if [ ! -f $BHP_CONF ]; then
+        cp conf/user.conf.example $BHP_CONF
+    fi
 
     cd $HOME
     echo
